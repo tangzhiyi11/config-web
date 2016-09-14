@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block page_content %}
+<div class="page-header">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			现有模块：
+		</div>
+		<div class="panel-body">
+            <div class="span12">
+                <ul class="list-inline">
+				{% for module in modules %}
+					<li>
+						<p><a href="#{{module[0].name}}">{{module[0].execute_id}}.{{module[0].name}}</a></p>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			添加模块：
+            {{ wtf.quick_form(add_form)}}
+		</div>
+	</div>
+
+
+	{% for module in modules %}
+	<div class="panel panel-default" >
+		<a name="{{module[0].name}}" id="{{module[0].name}}"></a>
+		<div class="panel-body">
+			{{wtf.quick_form(module[1])}}
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+
+{% endblock %}
